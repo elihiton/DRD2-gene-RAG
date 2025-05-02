@@ -7,7 +7,12 @@ Through the work of the Human Genome Project and research since then, there is a
 ## Data Pipeline
 Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "therapeutic use" OR "adverse effects" OR "drug response" OR "clinical trials") were retrieved from Pubmed. The title, abstract, authors, and dates were retrieved from the abstract and cleaned. Any abstracts lacking any of these items were discarded leaving 617 abstracts. These abstracts were separated into chunks along sentence boundaries ranging in length from ___ to ___ maybe a graphic about chunk size. 
 
-![Chunk Length Histogram](https://github.com/elihiton/DRD2-gene-RAG/blob/main/chunk-length-histogram.png)
+<div align="center">
+  <img src="https://github.com/elihiton/DRD2-gene-RAG/blob/main/chunk-length-histogram.png" alt="Chunk Length Histogram">
+</div>
+
+
+
 These chunks were embedded with all-MiniLM-L6-v2 and stored in a Chroma databases. User queries are passed to the database and relevant chunks are passed to gemini-2.0-flash-lite to generate responses using the retrieved content. Gemini was initialized with one of the following prompts depending on use case:
 
 "You are a RAG system designed to provide useful genetic and genomic information for clinicians to aid their work on
