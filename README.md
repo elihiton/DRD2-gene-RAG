@@ -5,7 +5,10 @@
 Through the work of the Human Genome Project and research since then, there is a bounty of genetics knowledge. Unfortunately, this research is spread across numerous databases and research papers. For a doctor wanting a quick question answered to a pharmaceutical researcher looking for a broad survey of a topic, sifting through this research might not be feasible. This project demonstrates the use of the RAG technique to answer questions about the DRD2 gene.
 
 ## Data Pipeline
-Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "therapeutic use" OR "adverse effects" OR "drug response" OR "clinical trials") were retrieved from Pubmed. The title, abstract, authors, and dates were retrieved from the abstract and cleaned. Any abstracts lacking any of these items were discarded leaving 617 abstracts. These abstracts were separated into chunks along sentence boundaries ranging in length from ___ to ___ maybe a graphic about chunk size. These chunks were embedded with all-MiniLM-L6-v2 and stored in a Chroma databases. User queries are passed to the database and relevant chunks are passed to gemini-2.0-flash-lite to generate responses using the retrieved content. Gemini was initialized with one of the following prompts depending on use case:
+Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "therapeutic use" OR "adverse effects" OR "drug response" OR "clinical trials") were retrieved from Pubmed. The title, abstract, authors, and dates were retrieved from the abstract and cleaned. Any abstracts lacking any of these items were discarded leaving 617 abstracts. These abstracts were separated into chunks along sentence boundaries ranging in length from ___ to ___ maybe a graphic about chunk size. 
+
+!(https://github.com/elihiton/DRD2-gene-RAG/blob/main/chunk-length-histogram.png)
+These chunks were embedded with all-MiniLM-L6-v2 and stored in a Chroma databases. User queries are passed to the database and relevant chunks are passed to gemini-2.0-flash-lite to generate responses using the retrieved content. Gemini was initialized with one of the following prompts depending on use case:
 
 "You are a RAG system designed to provide useful genetic and genomic information for clinicians to aid their work on
 diagnosis, etiology, treatment and anything else they need.
