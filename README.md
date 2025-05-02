@@ -7,9 +7,21 @@ Through the work of the Human Genome Project and research since then, there is a
 ## Data Pipeline
 Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "therapeutic use" OR "adverse effects" OR "drug response" OR "clinical trials") were retrieved from Pubmed. The title, abstract, authors, and dates were retrieved from the abstract and cleaned. Any abstracts lacking any of these items were discarded leaving 617 abstracts. These abstracts were separated into chunks along sentence boundaries ranging in length from ___ to ___ maybe a graphic about chunk size. These chunks were embedded with all-MiniLM-L6-v2 and stored in a Chroma databases. User queries are passed to the database and relevant chunks are passed to gemini-2.0-flash-lite to generate responses using the retrieved content. Gemini was initialized with one of the following prompts depending on use case:
 
-"You are a RAG system designed to provide useful genetic and genomic information for clinicians to aid their work
+"You are a RAG system designed to provide useful genetic and genomic information for clinicians to aid their work on
 diagnosis, etiology, treatment and anything else they need.
 A clinician has entered the query below and the context contains relevant chunks retrieved from a database of research on the DRD2 gene. 
+Use as many or as few of the sources as you need to answer the question accurately and concisely. You may also use existing knowledge from your training base.
+Please cite studies if applicable.
+
+Context: {context}
+
+Question: {query}"
+
+or
+
+"You are a RAG system designed to provide useful genetic and genomic information for pharmaceutical industry workers to aid their work on
+research, development, pharmacovigilance and anything else they need.
+A pharmaceutical industry worker has entered the query below and the context contains relevant chunks retrieved from a database of research on the DRD2 gene. 
 Use as many or as few of the sources as you need to answer the question accurately and concisely. You may also use existing knowledge from your training base.
 Please cite studies if applicable.
 
@@ -35,14 +47,13 @@ Muller et al. (2012) found significant associations between three DRD2 SNPs (rs6
 Hong et al. (2010) identified an association between the DRD2 rs4436578-C homozygous genotype and an increased risk of AIWG in schizophrenic patients treated with clozapine, olanzapine, or risperidone.
 Lencz et al. (2010) demonstrated that carriers of the deletion allele of the DRD2 -141C Ins/Del (rs1799732) promoter region polymorphism exhibited significantly more weight gain after 6 weeks of treatment with either risperidone or olanzapine.
 Houston et al. (2012) found that the A allele of DRD2 rs2440390(A/G) was associated with greater weight gain.
-It is important to note that some studies have not found a significant association between DRD2 and AIWG. For example, **Zhang et al. (2003)** did not find a significant association between the TaqI A polymorphism of the DRD2 gene and AIWG.
+It is important to note that some studies have not found a significant association between DRD2 and AIWG. For example, Zhang et al. (2003) did not find a significant association between the TaqI A polymorphism of the DRD2 gene and AIWG.
 
 
 Does genetic testing for DRD2 variants have clinical utility when personalizing addiction treatment approaches?
 
 Yes, genetic testing for DRD2 variants shows clinical utility in personalizing addiction treatment approaches. Several studies support this:
-
-*   **Predicting Treatment Outcomes:** DRD2 variants can predict outcomes in addiction treatment. For example, one study found a significant association between the A1 allele of the DRD2 gene and poor outcomes in methadone treatment for opioid dependence. Individuals with the A1 allele also reported higher heroin use prior to the study Lawford, B R et al., 2000).
-*   **Identifying Risk:** DRD2 polymorphisms, specifically the TaqIA polymorphism, have been linked to an increased vulnerability to addiction. Screening for this marker may help identify individuals at risk (Teh, Lay K et al., 2012).
-*   **Pharmacogenetic Approach:** DRD2 gene variants have been studied to identify responsiveness to treatment for nicotine addiction (Herman, Aryeh I et al., 2014). Research suggests that integrating genetic information with clinical data can inform health professionals of the most efficacious pharmacotherapeutic intervention for substance use disorders (Patriquin, Michelle A et al., 2015).
-*   **Association with Impulsive-Addictive-Compulsive Behavior:** Variants of the DRD2 gene have been associated with impulsive-addictive-compulsive behavior (Blum, K et al., 1995).
+Predicting Treatment Outcomes: DRD2 variants can predict outcomes in addiction treatment. For example, one study found a significant association between the A1 allele of the DRD2 gene and poor outcomes in methadone treatment for opioid dependence. Individuals with the A1 allele also reported higher heroin use prior to the study Lawford, B R et al., 2000).
+Identifying Risk: DRD2 polymorphisms, specifically the TaqIA polymorphism, have been linked to an increased vulnerability to addiction. Screening for this marker may help identify individuals at risk (Teh, Lay K et al., 2012).
+Pharmacogenetic Approach: DRD2 gene variants have been studied to identify responsiveness to treatment for nicotine addiction (Herman, Aryeh I et al., 2014). Research suggests that integrating genetic information with clinical data can inform health professionals of the most efficacious pharmacotherapeutic intervention for substance use disorders (Patriquin, Michelle A et al., 2015).
+Association with Impulsive-Addictive-Compulsive Behavior: Variants of the DRD2 gene have been associated with impulsive-addictive-compulsive behavior (Blum, K et al., 1995).
