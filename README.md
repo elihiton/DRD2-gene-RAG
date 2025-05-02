@@ -11,15 +11,13 @@ Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "t
   <img src="https://github.com/elihiton/DRD2-gene-RAG/blob/main/chunk-length-histogram.png" alt="Chunk Length Histogram">
 </div>
 
-
-
-These chunks were embedded with all-MiniLM-L6-v2 and stored in a Chroma databases. User queries are passed to the database and relevant chunks are passed to gemini-2.0-flash-lite to generate responses using the retrieved content. Gemini was initialized with one of the following prompts depending on use case:
+These chunks were embedded with all-MiniLM-L6-v2 and stored in a Chroma databases. User queries are passed to the database and relevant chunks are passed to gemini-2.0-flash-lite to generate responses using the retrieved content. The choice of these models was based primarily on cost-effectiveness. Gemini was initialized with one of the following prompts depending on use case:
 
 "You are a RAG system designed to provide useful genetic and genomic information for clinicians to aid their work on
 diagnosis, etiology, treatment and anything else they need.
 A clinician has entered the query below and the context contains relevant chunks retrieved from a database of research on the DRD2 gene. 
 Use as many or as few of the sources as you need to answer the question accurately and concisely. You may also use existing knowledge from your training base.
-Please cite studies if applicable.
+Please cite studies if applicable. If the provided context does not have information to answer the question, please state as much.
 
 Context: {context}
 
@@ -31,7 +29,7 @@ or
 research, development, pharmacovigilance and anything else they need.
 A pharmaceutical industry worker has entered the query below and the context contains relevant chunks retrieved from a database of research on the DRD2 gene. 
 Use as many or as few of the sources as you need to answer the question accurately and concisely. You may also use existing knowledge from your training base.
-Please cite studies if applicable.
+Please cite studies if applicable. If the provided context does not have information to answer the question, please state as much.
 
 Context: {context}
 
@@ -57,7 +55,6 @@ Lencz et al. (2010) demonstrated that carriers of the deletion allele of the DRD
 Houston et al. (2012) found that the A allele of DRD2 rs2440390(A/G) was associated with greater weight gain.
 It is important to note that some studies have not found a significant association between DRD2 and AIWG. For example, Zhang et al. (2003) did not find a significant association between the TaqI A polymorphism of the DRD2 gene and AIWG.
 
-
 Does genetic testing for DRD2 variants have clinical utility when personalizing addiction treatment approaches?
 
 Yes, genetic testing for DRD2 variants shows clinical utility in personalizing addiction treatment approaches. Several studies support this:
@@ -65,3 +62,10 @@ Predicting Treatment Outcomes: DRD2 variants can predict outcomes in addiction t
 Identifying Risk: DRD2 polymorphisms, specifically the TaqIA polymorphism, have been linked to an increased vulnerability to addiction. Screening for this marker may help identify individuals at risk (Teh, Lay K et al., 2012).
 Pharmacogenetic Approach: DRD2 gene variants have been studied to identify responsiveness to treatment for nicotine addiction (Herman, Aryeh I et al., 2014). Research suggests that integrating genetic information with clinical data can inform health professionals of the most efficacious pharmacotherapeutic intervention for substance use disorders (Patriquin, Michelle A et al., 2015).
 Association with Impulsive-Addictive-Compulsive Behavior: Variants of the DRD2 gene have been associated with impulsive-addictive-compulsive behavior (Blum, K et al., 1995).
+
+Are there known drug-drug interactions that specifically impact medications targeting the DRD2 receptor?
+
+The provided documents do not explicitly detail specific drug-drug interactions that impact medications targeting the DRD2 receptor.
+
+## Further Steps
+Several steps could be taken to improve this RAG system. Any adjustments to the system should be informed by analysis of user queries and feedback. The knowledge base could be enhanced and refined depending on user need. This might involve bringing in more non-human research or more drug-related research from a database like PharmGKB.
