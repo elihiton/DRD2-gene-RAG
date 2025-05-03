@@ -5,7 +5,7 @@
 Through the work of the Human Genome Project and research since then, there is a bounty of genetics knowledge. Unfortunately, this research is spread across numerous databases and research papers. For a doctor wanting a quick question answered to a pharmaceutical researcher looking for a broad survey of a topic, sifting through this research might not be feasible. This project demonstrates the use of the RAG technique to answer questions about the DRD2 gene.
 
 ## Data Pipeline
-Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "therapeutic use" OR "adverse effects" OR "drug response" OR "clinical trials") were retrieved from Pubmed. The title, abstract, authors, and dates were retrieved from the abstract and cleaned. Any abstracts lacking any of these items were discarded leaving 617 abstracts. These abstracts were separated into chunks along sentence boundaries ranging in length from ___ to ___ maybe a graphic about chunk size. 
+Using Entrez all abstracts matching the query DRD2 AND ("pharmacogenetics" OR "therapeutic use" OR "adverse effects" OR "drug response" OR "clinical trials") were retrieved from Pubmed. The title, abstract, authors, and dates were retrieved from the abstract and cleaned. Any abstracts lacking any of these items were discarded leaving 617 abstracts. These are credited in the citations.json file in this repository. These abstracts were separated into chunks roughly 800 characters in length along sentence boundaries. 
 
 <div align="center">
   <img src="https://github.com/elihiton/DRD2-gene-RAG/blob/main/chunk-length-histogram.png" alt="Chunk Length Histogram">
@@ -67,5 +67,9 @@ Are there known drug-drug interactions that specifically impact medications targ
 
 The provided documents do not explicitly detail specific drug-drug interactions that impact medications targeting the DRD2 receptor.
 
+## Conclusions
+Off-the-shelf Gemini is already so strong and likely implementing its own RAG protocols on Google search data so I didn't notice significant knowledge improvements in my system; in fact, its breadth may have dropped off slightly. This may or may not change if the later improvement steps are implemented. Two immediate benefits are the system's readiness to cite curated sources and the system's ability to admit ignorance if the curated sources do not have the requisite information. This may allow for a high standard of accuracy and research credibility. 
+
+
 ## Further Steps
-Several steps could be taken to improve this RAG system. Any adjustments to the system should be informed by analysis of user queries and feedback. The knowledge base could be enhanced and refined depending on user need. This might involve bringing in more non-human research or more drug-related research from a database like PharmGKB.
+Several steps could be taken to improve this RAG system. Any adjustments to the system should be informed by analysis of user queries and feedback. The knowledge base could be enhanced and refined depending on user need. This might involve bringing in more non-human research or more drug-related research from a database like PharmGKB. Next steps would be to improve embeddings and retrieval perhaps through an embedding model fine-tuned on genetic context or through a similarly tuned reranker.
